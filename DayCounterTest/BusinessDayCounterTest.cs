@@ -105,5 +105,26 @@ namespace DayCounterTest
             var secondDate = new DateTime(2021, 7, 21);
             Assert.AreEqual(41, dayCounter.BusinessDaysBetweenTwoDates(firstDate, secondDate, moreHolidays));
         }
+
+        [TestMethod]
+        public void Task1_2019_QueenBirthDay_FourWeekdayInBetween()
+        {
+            var dayCounter = new BusinessDayCounter();
+            var firstDate = new DateTime(2019, 6, 5);
+            var secondDate = new DateTime(2019, 6, 12);
+            // Should count Thursday 6th, Friday 7th, Monday 10th, Tuesday 11th
+            Assert.AreEqual(4, dayCounter.WeekdaysBetweenTwoDates(firstDate, secondDate));
+        }
+
+        [TestMethod]
+        public void Task3_2019_QueenBirthDay_BusinessDaysInBetween()
+        {
+            var dayCounter = new BusinessDayCounter();
+            var firstDate = new DateTime(2019, 6, 5);
+            var secondDate = new DateTime(2019, 6, 12);
+            // Queens Birthday falls on Monday 10th (second Monday of June)
+            // Should count Thursday 6th, Friday 7th, Tuesday 11th
+            Assert.AreEqual(3, dayCounter.BusinessDaysBetweenTwoDates(firstDate, secondDate, moreHolidays));
+        }
     }
 }
